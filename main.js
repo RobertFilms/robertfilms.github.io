@@ -15,6 +15,8 @@ window.onresize = function () {
   canvas.height = window.innerHeight;
 }
 
+let score = 0;
+let speedHelper = 0;
 let gravity = 1.5;
 let groundColor = '#993300';
 const GROUND = canvas.height / 1.5;
@@ -40,13 +42,13 @@ function RandomInt(min, max) {
 }
 
 function SpawnFly(){
-  if(RandomInt(1, 10) > 7){
+  if(RandomInt(1, 10) > 5){
     flies.push(new Fly());
   }
 }
 
 function SpawnCactus(){
-  if(RandomInt(1, 10) > 5){
+  if(RandomInt(1, 10) > 3){
     cacti.push(new Cactus());
   }
 }
@@ -63,12 +65,22 @@ function respawn(){
   update();
 }
 
+function scoreAdd() {
+  
+  if (player.dead != true){
+    score++;
+    speedHelper++;
+    document.getElementById('scoreWhen').innerText = `Your score: ${score}` ; 
+  }
+}
+
 function update() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (player.dead) {
       return;
     }
-    //console.log(player.yv);
+    //console.log(flies.xv);
+
     player.draw();
     player.update();
     drawGround();
@@ -96,3 +108,4 @@ function update() {
 update();
 setInterval(SpawnCactus, 1000);
 setInterval(SpawnFly, 1500);
+setInterval(scoreAdd, 100)
