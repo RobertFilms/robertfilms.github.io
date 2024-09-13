@@ -173,8 +173,6 @@ function update() {
     showDeathScreen();
   }
 
-
-
   requestAnimationFrame(update);
 }
 

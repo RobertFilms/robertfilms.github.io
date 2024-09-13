@@ -1,5 +1,5 @@
 
-var speed;
+//var speed;
 class Fly {
   constructor(xv) {
 
@@ -12,7 +12,9 @@ class Fly {
     this.xv = -15;
     this.jitterIntensity = 1;
     this.jitterTick = 0;
-    speed = this.xv;
+    this.sprite = new Image();
+    this.sprite.src ='';
+    //speed = this.xv;
   }
 
 
@@ -21,7 +23,7 @@ class Fly {
     //If the score is 300
     if (speedHelper >= 300) {
       speedHelper = 0;
-      speed--;
+      this.xv--;
     }
   }
 
@@ -30,9 +32,6 @@ class Fly {
 
     //Makes the fly go to the left
     this.x += this.xv;
-
-    //Run the function
-    flySpeedinc();
   }
 
   //DRAW
@@ -59,5 +58,6 @@ class Fly {
     //Run the physics function
     this.physics();
     this.jitter();
+    this.flySpeedinc()
   }
 }
