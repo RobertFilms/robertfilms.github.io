@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run n' Jump</title>
+    <style>
+        canvas {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        #deathScreen {
+            display: none;
+            position: fixed;
+            inset: 0px;
+            width: absolute;
+            height: absolute;
+            max-width: absolute;
+            max-height: absolute;
+            background-size: cover;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        #title {
+            font-size: 100px;
+            color: rgb(255, 0, 0);
+            font-family: 'Press Start 2P', cursive;
+        }
+    </style>
+    <canvas id="canvas"></canvas>
+    <script src="collision.js"></script>
+    <script src="player.js"></script>
+    <script src="fly.js"></script>
+    <script src="cactus.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div id="scoreWhen"></div>
+    <div id="deathScreen">
+        <h1 id="da">You have died...</h1>
+        <button id="resetbtn" onClick="respawn()">Reset?</button>
+        <a href="menu.html">
+            <button id="menuButton" onClick="">Main Menu</button>
+        </a>
+        <video autoplay muted loop id="myVideo">
+            <source src="WIN.mp4" type="video/mp4">
+    </div>
+</body>
+
+</html>

@@ -1,5 +1,8 @@
+//New class player
 class Player {
   constructor(x, y, w, h, dead) {
+
+    //Setting up players vars
     this.x = x;
     this.y = y;
     this.yv = 0;
@@ -13,22 +16,29 @@ class Player {
     this.jumpHeight = 20;
   }
 
-  physics () {
+  //THIS FUNCTION IS MAKING THE PLAYERS PHYSICS
+  physics() {
+
     //gravity in the works
     this.yv += gravity;
     this.y += this.yv;
     this.x += this.xv;
 
     //checks if player is on ground
-    if(this.y + this.h >= GROUND){
+    if (this.y + this.h >= GROUND) {
       this.y = GROUND - this.h;
+      //Set onGround var to true
       this.onGround = true;
+      //Set jumping to false to allow you to jump again
       this.jumping = false;
     } else {
+      //Otherwise make sure that the on Ground var is false becasue you in the air bud
       this.onGround = false;
     }
 
+    //If your Y level is somehow highr then screens Y you die
     if (this.y > canvas.height) {
+      //Make the dead var true
       this.dead = true;
     }
 
@@ -41,22 +51,35 @@ class Player {
     //console.log(this.yv);
   }
 
-  jump () {
-    if(!this.jumping){
+  //THIS FUNCTION IS ALLOWING THE PLAYER TO JUMP
+  jump() {
+
+    //If player is not jumping
+    if (!this.jumping) {
+      //Set the onGround var to false
       this.onGround = false;
+      //Set the jumping var to true
       this.jumping = true;
+      //Subtract the y volocity of the play by its jump height
       this.yv = -this.jumpHeight;
     }
   }
-  
-  draw () {
-    if(!this.dead){
+
+  //THIS FUNCTION DRAWS THE PLAYER TO THE SCREEN
+  draw() {
+
+    //Checks if player is not dead
+    if (!this.dead) {
+      //Draw the player
       ctx.fillStyle = this.color;
       ctx.fillRect(this.x, this.y, this.w, this.h);
     }
   }
 
-  update () {
+  //THIS FUNCTION UPDATES ALL THE PLAYERS FUNCTIONS
+  update() {
+
+    //Run the physics function to make the movements of the player
     this.physics();
   }
 }

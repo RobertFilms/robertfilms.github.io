@@ -1,5 +1,5 @@
 class Cactus {
-  constructor(xv) {
+  constructor() {
     this.spawnPos = GROUND - 25;
     this.x = canvas.width;
     this.y = this.spawnPos;
@@ -8,25 +8,25 @@ class Cactus {
     this.xv = -15;
   }
 
-  physics () {
-    this.x += this.xv;
-
-    function cacSpeedinc() {
-      if (speedHelper >= 500) {
-        speedHelper = 0;
-        this.xv -= 1;
-      }
+  cacSpeedinc() {
+    if (speedHelper >= 300) {
+      speedHelper = 0;
+      this.xv--;
     }
-    cacSpeedinc();
   }
 
-  draw () {
+  physics() {
+    this.x += this.xv;
+  }
+
+  draw() {
     ctx.fillStyle = 'green';
     ctx.fillRect(this.x, this.y, this.w, this.h);
   }
 
-  update () {
+  update() {
     this.physics();
+    this.cacSpeedinc();
   }
-  
+
 }
