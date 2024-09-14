@@ -1,17 +1,17 @@
 class Cactus {
   constructor() {
-    this.spawnPos = GROUND - 60;
+    this.spawnPos = GROUND - 64;
     this.x = canvas.width;
     this.y = this.spawnPos;
-    this.w = 40;
-    this.h = 60;
+    this.w = 45;
+    this.h = 65;
     this.xv = 0;
     this.sprite = new Image();
     this.sprite.src = 'public/sprites/cactus.png';
   }
 
   cacSpeedinc() {
-    if (speedHelper >= 300) {
+    if (speedHelper >= 500) {
       speedHelper = 0;
       scrollSpeed++;
     }

@@ -29,7 +29,10 @@ let groundColor = '#c3b949';
 let gameSong = new Audio('public/audio/game.mp3');
 let gameMaxVolume = 0.5;
 let songPlaying = false;
+//In hard mode the scroll speed starts at 20
 var scrollSpeed = 15;
+//In hard mode the max speed is 35
+var maxSpeed = 30;
 
 //Set the volume of the game song
 gameSong.volume = 0;
@@ -41,8 +44,8 @@ const GROUND = canvas.height / 1.5;
 //Add a player to teh game
 let player = new Player(125, 425, 25, 25);
 
-//Make the lists of flies and cacti
-let flies = [];
+//Make the lists of birds and cacti
+let birds = [];
 let cacti = [];
 
 //DRAW GROUND
@@ -72,20 +75,20 @@ function randomInt(min, max) {
 }
 
 //SPAWN CACTUS
-function SpawnFly() {
+function Spawnbird() {
 
-  //If random number is greater than 5 spawn tiny fly
+  //If random number is greater than 5 spawn tiny bird
   if (randomInt(1, 10) > 5) {
-    let fly = new Fly();
-    let cactiRange = 40;
-    //Add a new fly to the list of all of them
-    flies.push(fly);
+    let bird = new Bird();
+    let cactiRange = 30;
+    //Add a new bird to the list of all of them
+    birds.push(bird);
 
     let overLappingCacti = cacti.some(cactus => {
-      return fly.x > cactus.x - cactiRange && fly.x < cactus.x + cactus.w + cactiRange && fly.y > cactus.y - cactiRange && fly.y < cactus.y + cactus.h + cactiRange;
+      return bird.x > cactus.x - cactiRange && bird.x < cactus.x + cactus.w + cactiRange && bird.y > cactus.y - cactiRange && bird.y < cactus.y + cactus.h + cactiRange;
     });
     if (overLappingCacti) {
-      flies.pop();
+      birds.pop();
     }
   }
 }
@@ -116,8 +119,8 @@ function respawn() {
   document.getElementById('deathScreen').style.display = 'none';
   //Update the score
   score = 0;
-  //Reset flies and cacti lists
-  flies = [];
+  //Reset birds and cacti lists
+  birds = [];
   cacti = [];
   //Run update function to start up the game
   update();
@@ -164,31 +167,31 @@ function update() {
   if (player.dead) {
     return;
   }
-  //console.log(flies.xv);
+  //console.log(birds.xv);
 
   //Load in the player and draw the ground
   player.draw();
   player.update();
   drawGround();
 
-  //Console log the list of flies and cacti
+  //Console log the list of birds and cacti
   //console.log(cacti);
-  //console.log(flies);
+  //console.log(birds);
 
   //****ADD SPRITE FOR CACTI HERE****
 
-  //Spawn and update flies on the map
-  for (f in flies) {
-    let fly = flies[f];
-    fly.draw();
-    fly.update();
-    if (collision(player, fly)) {
+  //Spawn and update birds on the map
+  for (f in birds) {
+    let bird = birds[f];
+    bird.draw();
+    bird.update();
+    if (collision(player, bird)) {
       player.dead = true;
     }
 
-    //Delete flies that are off map
-    if (fly.x < 0) {
-      flies.splice(f, 1);
+    //Delete birds that are off map
+    if (bird.x < 0) {
+      birds.splice(f, 1);
     }
   }
 
@@ -218,5 +221,5 @@ function update() {
 //Run the update function and set the spawns and score to activate at said times
 update();
 setInterval(SpawnCactus, randomInt(500, 1300));
-setInterval(SpawnFly, randomInt(500, 1300));
+setInterval(Spawnbird, randomInt(500, 1300));
 setInterval(scoreAdd, 100)
