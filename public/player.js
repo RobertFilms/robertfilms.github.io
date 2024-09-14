@@ -13,7 +13,7 @@ class Player {
     this.onGround = false;
     this.dead = false;
     this.jumping = false;
-    this.jumpHeight = 20;
+    this.jumpHeight = 22;
   }
 
   //THIS FUNCTION IS MAKING THE PLAYERS PHYSICS

@@ -77,12 +77,12 @@ function SpawnFly() {
   //If random number is greater than 5 spawn tiny fly
   if (randomInt(1, 10) > 5) {
     let fly = new Fly();
-    let cactiRange = 30;
+    let cactiRange = 40;
     //Add a new fly to the list of all of them
     flies.push(fly);
 
     let overLappingCacti = cacti.some(cactus => {
-      return fly.x > cactus.x- cactiRange && fly.x < cactus.x + cactus.w + cactiRange && fly.y > cactus.y - cactiRange && fly.y < cactus.y + cactus.h + cactiRange;
+      return fly.x > cactus.x - cactiRange && fly.x < cactus.x + cactus.w + cactiRange && fly.y > cactus.y - cactiRange && fly.y < cactus.y + cactus.h + cactiRange;
     });
     if (overLappingCacti) {
       flies.pop();

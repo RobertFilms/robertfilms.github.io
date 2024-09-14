@@ -4,7 +4,7 @@ class Fly {
   constructor(xv) {
 
     //Setting all the flies vars
-    this.spawnPositions = [GROUND - 70, GROUND - 110];
+    this.spawnPositions = [GROUND - 75, GROUND - 120];
     this.x = canvas.width;
     this.y = this.spawnPositions[randomInt(0, this.spawnPositions.length - 1)];
     this.w = 15;
@@ -13,7 +13,7 @@ class Fly {
     this.jitterIntensity = 1;
     this.jitterTick = 0;
     this.sprite = new Image();
-    this.sprite.src ='';
+    this.sprite.src = '';
     //speed = this.xv;
   }
 

@@ -7,7 +7,7 @@ class Cactus {
     this.h = 60;
     this.xv = 0;
     this.sprite = new Image();
-    this.sprite.src ='public/sprites/cactus.png';
+    this.sprite.src = 'public/sprites/cactus.png';
   }
 
   cacSpeedinc() {
