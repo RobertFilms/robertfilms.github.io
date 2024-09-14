@@ -1,27 +1,31 @@
 class Cactus {
   constructor() {
-    this.spawnPos = GROUND - 25;
+    this.spawnPos = GROUND - 60;
     this.x = canvas.width;
     this.y = this.spawnPos;
-    this.w = 12;
-    this.h = 25;
-    this.xv = -15;
+    this.w = 40;
+    this.h = 60;
+    this.xv = 0;
+    this.sprite = new Image();
+    this.sprite.src ='public/sprites/cactus.png';
   }
 
   cacSpeedinc() {
     if (speedHelper >= 300) {
       speedHelper = 0;
-      this.xv--;
+      scrollSpeed++;
     }
   }
 
   physics() {
+    this.xv = -scrollSpeed;
     this.x += this.xv;
   }
 
   draw() {
-    ctx.fillStyle = 'green';
-    ctx.fillRect(this.x, this.y, this.w, this.h);
+    //ctx.fillStyle = 'green';
+    //ctx.fillRect(this.x, this.y, this.w, this.h);
+    ctx.drawImage(this.sprite, this.x, this.y, this.w, this.h);
   }
 
   update() {

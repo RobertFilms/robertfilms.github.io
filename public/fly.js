@@ -4,12 +4,12 @@ class Fly {
   constructor(xv) {
 
     //Setting all the flies vars
-    this.spawnPositions = [GROUND - 50, GROUND - 90];
+    this.spawnPositions = [GROUND - 70, GROUND - 110];
     this.x = canvas.width;
-    this.y = this.spawnPositions[RandomInt(0, this.spawnPositions.length - 1)];
+    this.y = this.spawnPositions[randomInt(0, this.spawnPositions.length - 1)];
     this.w = 15;
     this.h = 15;
-    this.xv = -15;
+    this.xv = 0;
     this.jitterIntensity = 1;
     this.jitterTick = 0;
     this.sprite = new Image();
@@ -23,13 +23,14 @@ class Fly {
     //If the score is 300
     if (speedHelper >= 300) {
       speedHelper = 0;
-      this.xv--;
+      scrollSpeed++;
     }
   }
 
   //PHYSICS
   physics() {
 
+    this.xv = -scrollSpeed;
     //Makes the fly go to the left
     this.x += this.xv;
   }

@@ -24,5 +24,13 @@
         </div>
     </center>
 </body>
+<script>
+    let menuSong = new Audio('public/audio/menu.mp3');
+    menuSong.loop = true;
 
+    addEventListener('click', () => {
+        menuSong.play();
+        menuSong.volume = 0.2;
+    });
+</script>
 </html>

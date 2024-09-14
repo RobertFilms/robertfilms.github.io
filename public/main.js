@@ -8,6 +8,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 let video = document.getElementById('myVideo');
+ctx.imageSmoothingEnabled = false;
 
 //Resizing canvas
 canvas.width = window.innerWidth;
@@ -24,7 +25,15 @@ window.onresize = function () {
 let score = 0;
 let speedHelper = 0;
 let gravity = 1.5;
-let groundColor = '#0F570D';
+let groundColor = '#c3b949';
+let gameSong = new Audio('public/audio/game.mp3');
+let gameMaxVolume = 0.5;
+let songPlaying = false;
+var scrollSpeed = 15;
+
+//Set the volume of the game song
+gameSong.volume = 0;
+gameSong.loop = true;
 
 //Set the ground height
 const GROUND = canvas.height / 1.5;
@@ -56,7 +65,7 @@ document.addEventListener('keydown', event => {
 })
 
 //RANDOM INTEGER
-function RandomInt(min, max) {
+function randomInt(min, max) {
 
   //Return a number between the set min and max
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -66,9 +75,18 @@ function RandomInt(min, max) {
 function SpawnFly() {
 
   //If random number is greater than 5 spawn tiny fly
-  if (RandomInt(1, 10) > 5) {
-    //Add a new fly to teh list of all of them
-    flies.push(new Fly());
+  if (randomInt(1, 10) > 5) {
+    let fly = new Fly();
+    let cactiRange = 30;
+    //Add a new fly to the list of all of them
+    flies.push(fly);
+
+    let overLappingCacti = cacti.some(cactus => {
+      return fly.x > cactus.x- cactiRange && fly.x < cactus.x + cactus.w + cactiRange && fly.y > cactus.y - cactiRange && fly.y < cactus.y + cactus.h + cactiRange;
+    });
+    if (overLappingCacti) {
+      flies.pop();
+    }
   }
 }
 
@@ -76,9 +94,10 @@ function SpawnFly() {
 function SpawnCactus() {
 
   //If the random number is greater then 3 spawn the big fat cactus
-  if (RandomInt(1, 10) > 3) {
+  if (randomInt(1, 10) > 3) {
+    let cactus = new Cactus();
     //Add a new cactus to the list of them all
-    cacti.push(new Cactus());
+    cacti.push(cactus);
   }
 }
 
@@ -117,6 +136,26 @@ function scoreAdd() {
   }
 }
 
+//FADE IN AUDIO
+function fadeIn() {
+  let volume = 0;
+  let interval = setInterval(() => {
+    volume += 0.01;
+    gameSong.volume = volume;
+    if (volume >= gameMaxVolume) {
+      clearInterval(interval);
+    }
+  }, 100);
+}
+
+//When you jump start the audio
+addEventListener('keydown', () => {
+  if (songPlaying) return;
+  fadeIn();
+  gameSong.play();
+  songPlaying = true;
+});
+
 //UPDATE GAME
 function update() {
   //Reset canvas
@@ -131,7 +170,7 @@ function update() {
   player.draw();
   player.update();
   drawGround();
-  
+
   //Console log the list of flies and cacti
   //console.log(cacti);
   //console.log(flies);
@@ -178,6 +217,6 @@ function update() {
 
 //Run the update function and set the spawns and score to activate at said times
 update();
-setInterval(SpawnCactus, 1000);
-setInterval(SpawnFly, 1500);
+setInterval(SpawnCactus, randomInt(500, 1300));
+setInterval(SpawnFly, randomInt(500, 1300));
 setInterval(scoreAdd, 100)
